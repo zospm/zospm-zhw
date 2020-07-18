@@ -1,12 +1,12 @@
 #!/bin/sh
 #set -x
-. zbrewsetenv
+. zospmsetenv
 setjavaenv
 
 a2e() {
 	orig=$1
 	file=$(basename $1)
-	out=${ZBREW_TMP}/$$.$file.ebcdic
+	out=${ZOSPM_TMP}/$$.$file.ebcdic
 
 	fromcp=`chtag -p ${orig} | awk '{ if ($2 == "untagged") { print "IBM-1047" } else { print $2; }}'`
 	tocp='IBM-1047'
@@ -22,8 +22,8 @@ if [ $# -ne 1 ]; then
 fi
 NTS="$1"
 
-sysin=${ZBREW_TMP}/$$.gimzip.sysin
-hlq="${ZBREW_SRC_HLQ}"
+sysin=${ZOSPM_TMP}/$$.gimzip.sysin
+hlq="${ZOSPM_SRC_HLQ}"
 smpmcs="${hlq}ZHWZ110.MCS"
 smpmcsptf1="${hlq}PTF.ZHW110.MCSPTF1"
 smpmcsptf2="${hlq}PTF.ZHW110.MCSPTF2"
@@ -32,7 +32,7 @@ smppdsf="${hlq}ZHWZ110.PDS"
 smprelf="${hlq}ZHWZ110.F1"
 
 echo "
-<GIMZIP description=\"zbrew sample for testing\">
+<GIMZIP description=\"zospm sample for testing\">
   <FILEDEF name=\"${smpmcs}\"
            description=\"mcs file\"
            archid=\"SMPMCS\"
@@ -97,7 +97,7 @@ dtouch -tseq ${sysut2}
 dtouch -tseq ${sysut3}
 dtouch -tseq ${sysut4}
 
-out=`mvscmdauth --pgm=gimzip --smpdir="${NTS}" --smpwkdir="${ZBREW_TMP}" --smpcpath="${SMPE_CLASSPATH}" --smpjhome="${SMPE_JAVAHOME}" --SYSUT2=${sysut2} --SYSUT3=${sysut3} --SYSUT4=${sysut4} --smpout=stdout --sysprint=stdout --sysin=${sysin}`
+out=`mvscmdauth --pgm=gimzip --smpdir="${NTS}" --smpwkdir="${ZOSPM_TMP}" --smpcpath="${SMPE_CLASSPATH}" --smpjhome="${SMPE_JAVAHOME}" --SYSUT2=${sysut2} --SYSUT3=${sysut3} --SYSUT4=${sysut4} --smpout=stdout --sysprint=stdout --sysin=${sysin}`
 rc=$?
 
 if [ $rc -gt 0 ]; then 

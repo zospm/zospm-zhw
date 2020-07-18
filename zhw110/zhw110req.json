@@ -1,7 +1,7 @@
 { 
 	"software": [{ 
 		"relid":"ZHW110", 
-		"description":"zbrew hello-world sample software",
+		"description":"zospm hello-world sample software",
 		"prereq":
 		[
 			{  

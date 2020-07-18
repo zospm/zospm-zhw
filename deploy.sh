@@ -1,5 +1,5 @@
 #!/bin/sh
-. zbrewsetenv 
+. zospmsetenv 
 
-zbrewdeploy "$1" zbrew-zhwbin.bom
+zospmdeploy "$1" zospm-zhwbin.bom
 exit $? 
